@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shokirov Azimboy | Backend Developer</title>
+<meta name="description" content="Shokirov Azimboy — Xorazm, O'zbekistonlik Backend Developer. 3 yillik tajriba, Python, Django, Flask va PostgreSQL asosida ishonchli backend tizimlar quraman.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%234f7cfa'/%3E%3Ctext x='50' y='68' font-size='52' font-family='sans-serif' font-weight='800' fill='white' text-anchor='middle'%3EA%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060810;--bg-soft:#0b0e1a;--surface:rgba(255,255,255,0.045);--surface-strong:rgba(255,255,255,0.085);
+  --border:rgba(255,255,255,0.09);--border-strong:rgba(255,255,255,0.18);--text:#f2f4f9;--text-dim:#99a1b8;
+  --text-faint:#5e667d;--blue:#4f7cfa;--violet:#9159f5;--cyan:#2dd8c7;--green:#38e29a;--amber:#f5b942;
+  --gradient-primary:linear-gradient(135deg,var(--blue),var(--violet));
+  --gradient-accent:linear-gradient(135deg,var(--cyan),var(--green));
+  --gradient-text:linear-gradient(135deg,var(--blue) 10%,var(--violet) 55%,var(--cyan) 100%);
+  --shadow-glow:0 10px 30px -8px rgba(79,124,250,0.45);
+  --radius-sm:8px;--radius-md:14px;--radius-lg:22px;--ease:cubic-bezier(.22,.9,.27,1);--nav-h:78px;
+}
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;line-height:1.6;overflow-x:hidden;position:relative;-webkit-font-smoothing:antialiased;}
+section{scroll-margin-top:var(--nav-h);}
+a{color:inherit;text-decoration:none;}
+ul{list-style:none;margin:0;padding:0;}
+button{font-family:inherit;background:none;border:none;color:inherit;}
+img,svg{max-width:100%;display:block;}
+h1,h2,h3,p{margin:0;}
+::selection{background:var(--violet);color:#fff;}
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--blue),var(--violet));border-radius:10px;}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:4px;}
+
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .8s var(--ease),transform .8s var(--ease);}
+.reveal.in-view{opacity:1;transform:translateY(0);}
+.skill-card,.project-card,.contact-card{opacity:0;transform:translateY(28px);transition:opacity .6s var(--ease),transform .6s var(--ease),border-color .35s ease,background .35s ease,box-shadow .35s ease;}
+.skill-card.in-view,.project-card.in-view,.contact-card.in-view{opacity:1;transform:translateY(0);}
+@media(prefers-reduced-motion:reduce){
+  .reveal,.skill-card,.project-card,.contact-card{opacity:1!important;transform:none!important;transition:none!important;}
+  .blob,.pulse-dot,.scroll-cue svg,.code-body .ln,.caret-block,.hero-role .caret{animation:none!important;}
+}
+
+.container{width:100%;max-width:1180px;margin:0 auto;padding:0 24px;position:relative;z-index:1;}
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,0.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.035) 1px,transparent 1px);background-size:44px 44px;-webkit-mask-image:radial-gradient(circle at 50% 0%,rgba(0,0,0,0.9),transparent 70%);mask-image:radial-gradient(circle at 50% 0%,rgba(0,0,0,0.9),transparent 70%);}
+.section{padding:120px 0;position:relative;z-index:1;}
+.section-head{margin-bottom:56px;max-width:640px;}
+.section-eyebrow{font-family:'JetBrains Mono',monospace;color:var(--cyan);font-size:.85rem;letter-spacing:.5px;margin-bottom:14px;display:block;}
+.section-title{font-family:'Poppins',sans-serif;font-weight:700;font-size:clamp(1.9rem,4vw,2.6rem);margin-bottom:16px;}
+.section-sub{color:var(--text-dim);line-height:1.75;font-size:1.02rem;}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;left:0;right:0;z-index:1000;padding:24px 0;transition:padding .35s var(--ease),background .35s var(--ease),box-shadow .35s var(--ease);}
+.navbar.scrolled{padding:14px 0;background:rgba(6,8,16,0.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);box-shadow:0 1px 0 rgba(255,255,255,0.08),0 16px 32px rgba(0,0,0,0.35);}
+.navbar .container{display:flex;align-items:center;justify-content:space-between;}
+.brand{display:flex;align-items:center;gap:11px;font-family:'Poppins',sans-serif;font-weight:700;font-size:1.1rem;}
+.brand-mark{width:38px;height:38px;border-radius:11px;background:var(--gradient-primary);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.95rem;color:#fff;box-shadow:var(--shadow-glow);flex-shrink:0;}
+.nav-menu{display:flex;align-items:center;gap:40px;}
+.nav-links{display:flex;align-items:center;gap:34px;}
+.nav-links a{font-size:.94rem;color:var(--text-dim);position:relative;padding:6px 1px;transition:color .25s ease;}
+.nav-links a::after{content:'';position:absolute;left:0;bottom:0;height:2px;width:0;background:var(--gradient-accent);transition:width .3s var(--ease);}
+.nav-links a:hover{color:var(--text);}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%;}
+.nav-links a.active{color:var(--text);}
+.hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:30px;height:30px;cursor:pointer;padding:0;position:relative;z-index:20;}
+.hamburger span{display:block;height:2px;width:100%;background:var(--text);border-radius:2px;transition:transform .3s ease,opacity .3s ease;}
+.hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+.hamburger.open span:nth-child(2){opacity:0;}
+.hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+.nav-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.55);opacity:0;pointer-events:none;transition:opacity .35s ease;z-index:10;}
+.nav-backdrop.show{opacity:1;pointer-events:auto;}
+@media(max-width:860px){
+  .nav-menu{position:fixed;top:0;right:-100%;width:min(78vw,320px);height:100vh;background:var(--bg-soft);flex-direction:column;justify-content:center;align-items:flex-start;gap:30px;padding:0 44px;box-shadow:-20px 0 60px rgba(0,0,0,0.5);transition:right .4s var(--ease);z-index:15;border-left:1px solid var(--border);}
+  .nav-menu.open{right:0;}
+  .nav-links{flex-direction:column;align-items:flex-start;gap:26px;}
+  .hamburger{display:flex;}
+}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:13px 26px;border-radius:11px;font-weight:600;font-size:.95rem;cursor:pointer;border:1.5px solid transparent;transition:transform .3s var(--ease),box-shadow .3s var(--ease),background .3s var(--ease),border-color .3s var(--ease),color .3s var(--ease);white-space:nowrap;}
+.btn-primary{background:var(--gradient-primary);color:#fff;box-shadow:0 12px 30px -10px rgba(79,124,250,0.6);}
+.btn-outline{background:rgba(255,255,255,0.03);border-color:var(--border-strong);color:var(--text);}
+.btn-sm{padding:10px 20px;font-size:.85rem;}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 18px 40px -10px rgba(79,124,250,0.75);}
+.btn-outline:hover{transform:translateY(-3px);border-color:var(--cyan);background:rgba(45,216,199,0.08);box-shadow:0 16px 32px -12px rgba(45,216,199,0.4);}
+.btn svg{width:18px;height:18px;flex-shrink:0;}
+.btn-sm svg{width:16px;height:16px;}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:150px 0 70px;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;}
+.blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.5;animation:float 20s ease-in-out infinite;}
+.blob-1{width:480px;height:480px;background:var(--blue);top:-140px;left:-120px;}
+.blob-2{width:420px;height:420px;background:var(--violet);top:100px;right:-150px;animation-duration:24s;animation-delay:-4s;}
+.blob-3{width:380px;height:380px;background:var(--cyan);bottom:-180px;left:28%;animation-duration:18s;animation-delay:-9s;}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(40px,-50px) scale(1.12);}}
+.hero .container{position:relative;z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center;}
+.availability-pill{display:inline-flex;align-items:center;gap:10px;padding:8px 16px;border-radius:30px;background:rgba(56,226,154,0.1);border:1px solid rgba(56,226,154,0.3);font-size:.83rem;color:var(--green);margin-bottom:26px;font-weight:500;}
+.pulse-dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 0 rgba(56,226,154,0.6);animation:pulse 2s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(56,226,154,.55);}70%{box-shadow:0 0 0 9px rgba(56,226,154,0);}100%{box-shadow:0 0 0 0 rgba(56,226,154,0);}}
+.hero-greet{color:var(--text-dim);font-size:1.05rem;margin-bottom:10px;}
+.hero-title{font-family:'Poppins',sans-serif;font-weight:800;font-size:clamp(2.3rem,5.5vw,3.7rem);line-height:1.12;margin-bottom:16px;}
+.hero-title .grad{background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.hero-role{font-family:'JetBrains Mono',monospace;font-size:clamp(1.05rem,2.2vw,1.45rem);color:var(--cyan);margin-bottom:24px;min-height:1.6em;display:flex;align-items:center;}
+.hero-role .caret{display:inline-block;width:2px;height:1.1em;background:var(--cyan);margin-left:4px;animation:blink 1s step-end infinite;}
+@keyframes blink{50%{opacity:0;}}
+.hero-desc{color:var(--text-dim);font-size:1.05rem;max-width:520px;margin-bottom:38px;line-height:1.8;}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;}
+.scroll-cue{position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text-faint);font-size:.78rem;z-index:2;}
+.scroll-cue svg{animation:bounce 2s infinite;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
+.code-card{border-radius:var(--radius-lg);overflow:hidden;background:var(--surface);border:1px solid var(--border);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);box-shadow:0 30px 70px -25px rgba(0,0,0,0.6);transform:rotate(1.2deg);transition:transform .4s var(--ease);}
+.code-card:hover{transform:rotate(0deg) translateY(-6px);}
+.code-card-header{display:flex;align-items:center;gap:8px;padding:14px 18px;background:rgba(255,255,255,0.03);border-bottom:1px solid var(--border);}
+.code-card-header .dot{width:11px;height:11px;border-radius:50%;}
+.dot.red{background:#ff5f57;}.dot.yellow{background:#febc2e;}.dot.green{background:#28c840;}
+.code-filename{margin-left:8px;font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--text-faint);}
+.code-body{padding:26px 24px;font-family:'JetBrains Mono',monospace;font-size:.86rem;line-height:1.95;overflow-x:auto;}
+.code-body .ln{opacity:0;animation:codeIn .5s var(--ease) forwards;white-space:pre;}
+.code-body .ln.indent{padding-left:1.4em;}
+.code-body .ln:nth-child(1){animation-delay:.3s;}.code-body .ln:nth-child(2){animation-delay:.42s;}.code-body .ln:nth-child(3){animation-delay:.54s;}.code-body .ln:nth-child(4){animation-delay:.66s;}.code-body .ln:nth-child(5){animation-delay:.78s;}.code-body .ln:nth-child(6){animation-delay:.9s;}.code-body .ln:nth-child(7){animation-delay:1.02s;}.code-body .ln:nth-child(8){animation-delay:1.14s;}
+@keyframes codeIn{from{opacity:0;transform:translateX(-10px);}to{opacity:1;transform:translateX(0);}}
+.c-kw{color:var(--violet);}.c-var{color:var(--text);}.c-key{color:var(--cyan);}.c-str{color:var(--green);}.c-bool{color:var(--amber);}
+.caret-block{display:inline-block;width:7px;height:1em;background:var(--cyan);margin-left:4px;vertical-align:-2px;animation:blink 1s step-end infinite;}
+@media(max-width:960px){.hero .container{grid-template-columns:1fr;}.hero{padding:130px 0 60px;text-align:left;}.code-card{max-width:480px;}}
+@media(max-width:600px){.hero-actions{flex-direction:column;align-items:stretch;}.hero-actions .btn{width:100%;}}
+
+/* ABOUT */
+.about-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:64px;align-items:start;}
+.about-text p{color:var(--text-dim);margin-bottom:22px;font-size:1.04rem;line-height:1.85;}
+.location-chip{display:inline-flex;align-items:center;gap:9px;padding:10px 18px;border-radius:30px;background:var(--surface);border:1px solid var(--border);font-size:.9rem;margin-top:6px;}
+.location-chip svg{color:var(--cyan);width:15px;height:15px;flex-shrink:0;}
+.stats-card{display:flex;justify-content:space-between;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:28px 22px;margin-bottom:24px;}
+.stat-item{display:flex;flex-direction:column;}
+.stat-num{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.9rem;background:var(--gradient-text);-webkit-background-clip:text;background-clip:text;color:transparent;}
+.stat-label{font-size:.78rem;color:var(--text-faint);margin-top:6px;max-width:90px;line-height:1.4;}
+.fact-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:28px;position:relative;overflow:hidden;}
+.fact-card::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--gradient-accent);}
+.fact-emoji{font-size:1.7rem;margin-bottom:12px;display:block;}
+.fact-card p{color:var(--text-dim);font-size:.94rem;line-height:1.8;margin:0;}
+@media(max-width:860px){.about-grid{grid-template-columns:1fr;gap:40px;}}
+@media(max-width:480px){.stats-card{flex-wrap:wrap;gap:22px;}}
+
+/* SKILLS */
+.skills-category{margin-bottom:46px;}
+.skills-category:last-child{margin-bottom:0;}
+.category-label{font-family:'Poppins',sans-serif;font-weight:600;font-size:1rem;color:var(--text-dim);margin-bottom:20px;display:flex;align-items:center;gap:12px;}
+.category-label::after{content:'';flex:1;height:1px;background:var(--border);}
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(165px,1fr));gap:18px;}
+.skill-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:24px 16px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;}
+.skill-icon{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.05);color:var(--text);transition:background .35s ease,transform .35s var(--ease);}
+.skill-icon svg{width:26px;height:26px;}
+.skill-icon.text-mark{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:.95rem;}
+.skill-name{font-weight:500;font-size:.92rem;}
+.skill-card:hover{transform:translateY(-8px);border-color:var(--border-strong);background:var(--surface-strong);box-shadow:0 22px 44px -16px rgba(79,124,250,0.4);}
+.skill-card:hover .skill-icon{background:var(--gradient-primary);transform:scale(1.08) rotate(-4deg);color:#fff;}
+
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:30px;}
+.project-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:transform .4s var(--ease),box-shadow .4s var(--ease),border-color .4s ease;}
+.project-cover{height:170px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;}
+.project-cover.c1{background:linear-gradient(135deg,rgba(79,124,250,0.3),rgba(145,89,245,0.25));}
+.project-cover.c2{background:linear-gradient(135deg,rgba(145,89,245,0.28),rgba(45,216,199,0.22));}
+.project-cover.c3{background:linear-gradient(135deg,rgba(45,216,199,0.25),rgba(56,226,154,0.25));}
+.project-cover::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.06) 1px,transparent 1px);background-size:22px 22px;}
+.project-cover svg{width:44px;height:44px;color:rgba(255,255,255,0.85);position:relative;z-index:1;transition:transform .4s var(--ease);}
+.project-body{padding:26px;}
+.project-title{font-family:'Poppins',sans-serif;font-weight:600;font-size:1.18rem;margin-bottom:10px;}
+.project-desc{color:var(--text-dim);font-size:.92rem;line-height:1.75;margin-bottom:20px;}
+.project-tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;}
+.tag{font-size:.73rem;padding:5px 11px;border-radius:20px;background:rgba(45,216,199,0.1);border:1px solid rgba(45,216,199,0.25);color:var(--cyan);font-family:'JetBrains Mono',monospace;}
+.project-link{display:flex;align-items:center;gap:8px;font-size:.87rem;font-weight:600;padding-top:16px;border-top:1px solid var(--border);transition:color .3s ease,gap .3s ease;}
+.project-link svg{width:17px;height:17px;flex-shrink:0;}
+.project-card:hover{transform:translateY(-10px);border-color:var(--border-strong);box-shadow:0 32px 64px -22px rgba(79,124,250,0.4);}
+.project-card:hover .project-cover svg{transform:scale(1.15) rotate(-6deg);}
+.project-link:hover{color:var(--cyan);gap:12px;}
+
+/* CONTACT */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;}
+.contact-card{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-md);padding:32px 22px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:13px;transition:transform .35s var(--ease),border-color .35s ease,box-shadow .35s ease,opacity .6s var(--ease);}
+.card-link-overlay{position:absolute;inset:0;z-index:1;border-radius:inherit;}
+.contact-icon{width:56px;height:56px;border-radius:50%;background:var(--gradient-primary);display:flex;align-items:center;justify-content:center;color:#fff;position:relative;z-index:0;}
+.contact-icon svg{width:24px;height:24px;}
+.contact-label{font-size:.78rem;color:var(--text-faint);text-transform:uppercase;letter-spacing:1px;}
+.contact-value{font-weight:600;font-size:.95rem;word-break:break-word;}
+.copy-btn{position:absolute;top:14px;right:14px;z-index:2;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.07);display:flex;align-items:center;justify-content:center;color:var(--text-dim);transition:background .25s ease,color .25s ease;cursor:pointer;}
+.copy-btn svg{width:14px;height:14px;}
+.copy-btn:hover{background:var(--cyan);color:#06070d;}
+.copy-btn.copied{background:var(--green);color:#06070d;}
+.contact-card:hover{transform:translateY(-8px);border-color:var(--cyan);box-shadow:0 24px 56px -18px rgba(45,216,199,0.35);}
+
+/* FOOTER */
+.footer{padding:42px 0;border-top:1px solid var(--border);text-align:center;}
+.footer p{color:var(--text-faint);font-size:.85rem;}
+.footer .heart{color:var(--blue);}
+.back-to-top{position:fixed;bottom:28px;right:28px;width:48px;height:48px;border-radius:50%;background:var(--gradient-primary);display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:var(--shadow-glow);opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .35s ease,transform .35s ease;z-index:400;cursor:pointer;}
+.back-to-top svg{width:20px;height:20px;}
+.back-to-top.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+.back-to-top:hover{transform:translateY(-4px) scale(1.06);}
+@media(max-width:600px){.section{padding:84px 0;}.hero{padding-top:120px;}}
+</style>
+</head>
+<body>
+
+<div class="bg-grid" aria-hidden="true"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <div class="container">
+    <a href="#hero" class="brand"><span class="brand-mark">A</span>Azimboy</a>
+    <div class="nav-menu" id="navMenu">
+      <ul class="nav-links">
+        <li><a href="#hero" class="nav-link active">Bosh sahifa</a></li>
+        <li><a href="#about" class="nav-link">Men haqimda</a></li>
+        <li><a href="#skills" class="nav-link">Ko'nikmalar</a></li>
+        <li><a href="#projects" class="nav-link">Loyihalar</a></li>
+      </ul>
+      <a href="#contact" class="btn btn-primary btn-sm">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Bog'lanish
+      </a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menyu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-backdrop" id="navBackdrop"></div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+  <div class="container">
+    <div class="hero-content">
+      <div class="availability-pill"><span class="pulse-dot"></span> Yangi loyihalar uchun ochiqman</div>
+      <p class="hero-greet">👋 Salom, men</p>
+      <h1 class="hero-title">Shokirov <span class="grad">Azimboy</span></h1>
+      <div class="hero-role"><span id="roleText">Backend Developer</span><span class="caret"></span></div>
+      <p class="hero-desc">Python, Django va Flask asosida ishonchli backend tizimlar quraman. G'oyalarni barqaror, miqyoslanuvchi va xavfsiz kodga aylantirish — mening ishim.</p>
+      <div class="hero-actions">
+        <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub
+        </a>
+        <a href="mailto:azimboyshokirov2008@gmail.com" class="btn btn-outline">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Email
+        </a>
+      </div>
+    </div>
+
+    <div class="code-card reveal">
+      <div class="code-card-header">
+        <span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span>
+        <span class="code-filename">profile.js</span>
+      </div>
+      <div class="code-body">
+        <div class="ln"><span class="c-kw">const</span> <span class="c-var">developer</span> = {</div>
+        <div class="ln indent"><span class="c-key">name</span>: <span class="c-str">"Shokirov Azimboy"</span>,</div>
+        <div class="ln indent"><span class="c-key">role</span>: <span class="c-str">"Backend Developer"</span>,</div>
+        <div class="ln indent"><span class="c-key">experience</span>: <span class="c-str">"3 yil"</span>,</div>
+        <div class="ln indent"><span class="c-key">location</span>: <span class="c-str">"Xorazm, O'zbekiston"</span>,</div>
+        <div class="ln indent"><span class="c-key">stack</span>: [<span class="c-str">"Python"</span>, <span class="c-str">"Django"</span>, <span class="c-str">"PostgreSQL"</span>],</div>
+        <div class="ln indent"><span class="c-key">available</span>: <span class="c-bool">true</span></div>
+        <div class="ln">};<span class="caret-block"></span></div>
+      </div>
+    </div>
+  </div>
+  <a href="#about" class="scroll-cue">
+    <span>Pastga aylantiring</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="m6 9 6 6 6-6"/></svg>
+  </a>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">// men-haqimda</span>
+      <h2 class="section-title">Men haqimda</h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>O'zbekistonning tarixiy Xorazm viloyatida tug'ilib o'sganman. Dasturlash sohasidagi birinchi qadamlarimni "Al-Xorazmiy vorislari" loyihasi doirasida qo'ydim — aynan shu yerda nazariy bilim bilan amaliy ko'nikmalarni uyg'unlashtirishni o'rgandim.</p>
+        <p>Bugungi kunda orqamda 3 yillik amaliy tajriba bilan Full-Stack dasturchi sifatida faoliyat yuritaman, biroq qalbim bilan backend tomonga — ishonchli arxitektura, toza kod va samarali ma'lumotlar bazasi loyihalashga ko'proq moyilman.</p>
+        <div class="location-chip">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          Xorazm viloyati, O'zbekiston
+        </div>
+      </div>
+      <div class="about-side reveal">
+        <div class="stats-card">
+          <div class="stat-item"><span class="stat-num">3+</span><span class="stat-label">Yillik tajriba</span></div>
+          <div class="stat-item"><span class="stat-num">9+</span><span class="stat-label">Texnologiya</span></div>
+          <div class="stat-item"><span class="stat-num">Full-Stack</span><span class="stat-label">Yondashuv</span></div>
+        </div>
+        <div class="fact-card">
+          <span class="fact-emoji">💡</span>
+          <p>Bilasizmi? "Algoritm" so'zi IX asr olimi Muhammad ibn Muso al-Xorazmiydan kelib chiqqan. Men ham aynan o'sha tarixiy yurt — Xorazmdan bo'lganim uchun bu meros bilan faxrlanaman.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">// ko'nikmalar</span>
+      <h2 class="section-title">Texnologiyalar va Ko'nikmalar</h2>
+      <p class="section-sub">Loyihalarimda kundalik ishlatadigan asosiy texnologiyalar va vositalar.</p>
+    </div>
+
+    <div class="skills-category">
+      <div class="category-label">Frontend</div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>
+          </div>
+          <span class="skill-name">HTML5</span>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/></svg>
+          </div>
+          <span class="skill-name">CSS3</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="skills-category">
+      <div class="category-label">Backend</div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M14.25.18l.9.2.73.26.59.3.45.32.34.34.25.34.16.33.1.3.04.26.02.2-.01.13V8.5l-.05.63-.13.55-.21.46-.26.38-.3.31-.33.25-.35.19-.35.14-.33.1-.3.07-.26.04-.21.02H8.77l-.69.05-.59.14-.5.22-.41.27-.33.32-.27.35-.2.36-.15.37-.1.35-.07.32-.04.27-.02.21v3.06H3.17l-.21-.03-.28-.07-.32-.12-.35-.18-.36-.26-.36-.36-.35-.46-.32-.59-.28-.73-.21-.88-.14-1.05L0 11.97l.06-1.22.16-1.04.24-.87.32-.71.36-.57.4-.44.42-.33.42-.24.4-.16.36-.1.32-.05.24-.01h.16l.06.01h8.16v-.83H6.18l-.01-2.75-.02-.37.05-.34.11-.31.17-.28.25-.26.31-.23.38-.2.44-.18.51-.15.58-.12.64-.1.71-.06.77-.04.84-.02 1.27.05zm-6.3 1.98l-.23.33-.08.41.08.41.23.34.33.22.41.09.41-.09.33-.22.23-.34.08-.41-.08-.41-.23-.33-.33-.22-.41-.09-.41.09-.33.22zM21.1 6.11l.28.06.32.12.35.18.36.27.36.35.35.47.32.59.28.73.21.88.14 1.04.05 1.23-.06 1.23-.16 1.04-.24.86-.32.71-.36.57-.4.45-.42.33-.42.24-.4.16-.36.09-.32.05-.24.02-.16-.01h-8.22v.82h5.84l.01 2.76.02.36-.05.34-.11.31-.17.29-.25.25-.31.24-.38.2-.44.17-.51.15-.58.13-.64.09-.71.07-.77.04-.84.01-1.27-.04-1.07-.14-.9-.2-.73-.25-.59-.3-.45-.33-.34-.34-.25-.34-.16-.33-.1-.3-.04-.25-.02-.2.01-.13v-5.34l.05-.64.13-.54.21-.46.26-.38.3-.32.33-.24.35-.2.35-.14.33-.1.3-.06.26-.04.21-.02.13-.01h5.84l.69-.05.59-.14.5-.21.41-.28.33-.32.27-.35.2-.36.15-.36.1-.35.07-.32.04-.28.02-.21V6.07h2.09l.14.04zm-6.47 14.25l-.23.33-.08.41.08.41.23.33.33.23.41.08.41-.08.33-.23.23-.33.08-.41-.08-.41-.23-.33-.33-.23-.41-.08-.41.08-.33.23z"/></svg>
+          </div>
+          <span class="skill-name">Python</span>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon text-mark">C++</div>
+          <span class="skill-name">C++</span>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M9 3v7L5.5 16A4 4 0 0 0 9 22h6a4 4 0 0 0 3.5-6L15 10V3"/><line x1="6.5" y1="18" x2="17.5" y2="18"/></svg>
+          </div>
+          <span class="skill-name">Flask</span>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon text-mark">Dj</div>
+          <span class="skill-name">Django</span>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon text-mark">DRF</div>
+          <span class="skill-name">Django REST Framework</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="skills-category">
+      <div class="category-label">Ma'lumotlar bazasi</div>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <span class="skill-name">SQLite</span>
+        </div>
+        <div class="skill-card">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <span class="skill-name">PostgreSQL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">// loyihalar</span>
+      <h2 class="section-title">Loyihalar</h2>
+      <p class="section-sub">Backend va Full-Stack yo'nalishida bajargan loyihalarimdan namunalar.</p>
+    </div>
+
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-cover c1">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">Onlayn Do'kon API</h3>
+          <p class="project-desc">Django REST Framework va PostgreSQL asosida qurilgan, mahsulotlar katalogi, savatcha va JWT autentifikatsiyani qamrab olgan to'liq funksional e-commerce backend tizimi.</p>
+          <div class="project-tags"><span class="tag">Django</span><span class="tag">DRF</span><span class="tag">PostgreSQL</span><span class="tag">JWT</span></div>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="project-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub'da ko'rish
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-cover c2">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">Vazifalar Boshqaruvchisi</h3>
+          <p class="project-desc">Flask va SQLite yordamida ishlab chiqilgan, foydalanuvchilarga shaxsiy va jamoaviy vazifalarni samarali rejalashtirish imkonini beruvchi veb-ilova.</p>
+          <div class="project-tags"><span class="tag">Flask</span><span class="tag">SQLite</span><span class="tag">Jinja2</span></div>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="project-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub'da ko'rish
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-cover c3">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><line x1="8" y1="7" x2="16" y2="7"/><line x1="8" y1="11" x2="16" y2="11"/><line x1="8" y1="15" x2="12" y2="15"/></svg>
+        </div>
+        <div class="project-body">
+          <h3 class="project-title">Blog Platformasi</h3>
+          <p class="project-desc">Django asosida qurilgan, maqolalar, izohlar va foydalanuvchi profillarini boshqaruvchi, admin panel bilan jihozlangan to'liq backend tizim.</p>
+          <div class="project-tags"><span class="tag">Django</span><span class="tag">PostgreSQL</span><span class="tag">Admin Panel</span></div>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="project-link">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            GitHub'da ko'rish
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="section-eyebrow">// aloqa</span>
+      <h2 class="section-title">Loyihangiz bormi? Bog'lanaylik!</h2>
+      <p class="section-sub">Savol, taklif yoki hamkorlik uchun quyidagi kanallardan qulay bo'lganini tanlang — tez orada javob beraman.</p>
+    </div>
+
+    <div class="contact-grid">
+      <!-- EMAIL -->
+      <div class="contact-card">
+        <a href="mailto:azimboyshokirov2008@gmail.com" class="card-link-overlay" aria-label="Email yuborish"></a>
+        <button class="copy-btn" id="copyEmailBtn" type="button" aria-label="Emailni nusxalash" title="Nusxalash">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        </button>
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        </div>
+        <span class="contact-label">Email</span>
+        <span class="contact-value">azimboyshokirov2008@gmail.com</span>
+      </div>
+
+      <!-- TELEGRAM -->
+      <a href="https://t.me/Azimb0y" target="_blank" rel="noopener noreferrer" class="contact-card">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+        </div>
+        <span class="contact-label">Telegram</span>
+        <span class="contact-value">@Azimb0y</span>
+      </a>
+
+      <!-- GITHUB -->
+      <a href="#" target="_blank" rel="noopener noreferrer" class="contact-card">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        </div>
+        <span class="contact-label">GitHub</span>
+        <span class="contact-value">Profilni ko'rish</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; <span id="year"></span> Shokirov Azimboy. Barcha huquqlar himoyalangan.</p>
+    <p>Xorazmdan <span class="heart">💙</span> bilan yaratilgan</p>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Tepaga qaytish">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+</button>
+
+<script>
+(function(){
+  "use strict";
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const yearEl = document.getElementById('year');
+  if(yearEl) yearEl.textContent = new Date().getFullYear();
+
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('navMenu');
+  const navBackdrop = document.getElementById('navBackdrop');
+  function openMenu(){hamburger.classList.add('open');navMenu.classList.add('open');navBackdrop.classList.add('show');hamburger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';}
+  function closeMenu(){hamburger.classList.remove('open');navMenu.classList.remove('open');navBackdrop.classList.remove('show');hamburger.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+  if(hamburger) hamburger.addEventListener('click',function(){navMenu.classList.contains('open')?closeMenu():openMenu();});
+  if(navBackdrop) navBackdrop.addEventListener('click',closeMenu);
+  document.querySelectorAll('.nav-menu a').forEach(function(a){a.addEventListener('click',closeMenu);});
+
+  const navbar = document.getElementById('navbar');
+  const backToTop = document.getElementById('backToTop');
+  function onScroll(){
+    if(navbar) navbar.classList.toggle('scrolled',window.scrollY>30);
+    if(backToTop) backToTop.classList.toggle('show',window.scrollY>480);
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  onScroll();
+  if(backToTop) backToTop.addEventListener('click',function(){window.scrollTo({top:0,behavior:reducedMotion?'auto':'smooth'});});
+
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  if('IntersectionObserver' in window && sections.length){
+    const navObserver = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          navLinks.forEach(function(link){link.classList.remove('active');});
+          const match = document.querySelector('.nav-link[href="#'+entry.target.id+'"]');
+          if(match) match.classList.add('active');
+        }
+      });
+    },{rootMargin:'-45% 0px -45% 0px'});
+    sections.forEach(function(sec){navObserver.observe(sec);});
+  }
+
+  if('IntersectionObserver' in window && !reducedMotion){
+    const revealObserver = new IntersectionObserver(function(entries,obs){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){entry.target.classList.add('in-view');obs.unobserve(entry.target);}
+      });
+    },{threshold:0.15,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.reveal').forEach(function(el){revealObserver.observe(el);});
+
+    const gridObserver = new IntersectionObserver(function(entries,obs){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          const cards=entry.target.children;
+          Array.prototype.forEach.call(cards,function(card,i){setTimeout(function(){card.classList.add('in-view');},i*90);});
+          obs.unobserve(entry.target);
+        }
+      });
+    },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+    document.querySelectorAll('.skills-grid,.projects-grid,.contact-grid').forEach(function(grid){gridObserver.observe(grid);});
+  } else {
+    document.querySelectorAll('.reveal,.skill-card,.project-card,.contact-card').forEach(function(el){el.classList.add('in-view');});
+  }
+
+  const roles=['Backend Developer','Full-Stack Developer',"Python & Django Mutaxassisi"];
+  const roleEl=document.getElementById('roleText');
+  if(roleEl && !reducedMotion){
+    let roleIndex=0,charIndex=roles[0].length,deleting=false;
+    function tick(){
+      const current=roles[roleIndex];
+      if(!deleting){charIndex++;roleEl.textContent=current.slice(0,charIndex);if(charIndex>=current.length){deleting=true;setTimeout(tick,1900);return;}}
+      else{charIndex--;roleEl.textContent=current.slice(0,charIndex);if(charIndex<=0){deleting=false;roleIndex=(roleIndex+1)%roles.length;}}
+      setTimeout(tick,deleting?35:75);
+    }
+    setTimeout(function(){deleting=true;charIndex=roles[0].length;tick();},2200);
+  }
+
+  const copyBtn=document.getElementById('copyEmailBtn');
+  if(copyBtn){
+    copyBtn.addEventListener('click',function(e){
+      e.preventDefault();e.stopPropagation();
+      const email='azimboyshokirov2008@gmail.com';
+      function showCopied(){
+        const original=copyBtn.innerHTML;
+        copyBtn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M20 6 9 17l-5-5"/></svg>';
+        copyBtn.classList.add('copied');
+        setTimeout(function(){copyBtn.innerHTML=original;copyBtn.classList.remove('copied');},1700);
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){navigator.clipboard.writeText(email).then(showCopied).catch(function(){});}
+    });
+  }
+})();
+</script>
+</body>
+</html>
